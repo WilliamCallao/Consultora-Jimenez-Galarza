@@ -3,24 +3,20 @@ import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import MapBackground from './MapBackground';
 import theme from './theme';
+import CustomCard from './CustomCard';
 
 const MainScreen = () => {
   return (
     <MapBackground>
-      {/* Overlay UI elements */}
-      <View style={styles.overlay}>
-        <Text style={styles.title}>Bienvenido a la App</Text>
-        <Button
-          title="Botón 1"
-          onPress={() => alert('Botón 1 presionado')}
-          color={theme.colors.primary}
-        />
-        <Button
-          title="Botón 2"
-          onPress={() => alert('Botón 2 presionado')}
-          color={theme.colors.primary}
-        />
-      </View>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <CustomCard
+        title="Gate 1C"
+        subtitle="Airport Infrastructure"
+        buttonText="Build a route"
+      >
+        <Text>Additional content can go here.</Text>
+      </CustomCard>
+    </View>
     </MapBackground>
   );
 };
