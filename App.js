@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Provider as PaperProvider } from 'react-native-paper';
-import SelectionScreen from './SelectionScreen';
+import SelectionScreen from './MainScreen';
 import theme from './theme';
 
 const loadFonts = () => {
