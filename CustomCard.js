@@ -3,16 +3,26 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Toast from 'react-native-toast-message';
 
 const CustomCard = ({ title, subtitle, buttonText, children }) => {
-  return (
+    const handlePress = () => {
+        Toast.show({
+          type: 'success', // Puedes cambiar el tipo por error, info, etc. según necesites
+          text1: title,
+          text2: 'Action was successfully performed!',
+          visibilityTime: 4000, // Duración de cómo el toast es visible
+        });
+      };
+  
+    return (
     <Card style={styles.card}>
       <Card.Content>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         {children}
       </Card.Content>
-      <TouchableOpacity style={styles.button} onPress={() => alert('Button Pressed')}>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>{buttonText}</Text>
         <Icon name="arrow-forward" size={24} color="#000" style={styles.icon} />
       </TouchableOpacity>

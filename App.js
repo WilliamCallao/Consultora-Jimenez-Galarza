@@ -5,6 +5,7 @@ import AppLoading from 'expo-app-loading';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SelectionScreen from './MainScreen';
 import theme from './theme';
+import Toast from 'react-native-toast-message';
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -29,8 +30,9 @@ const App = () => {
   }
 
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={theme} style={{ flex: 1 }}>
       <SelectionScreen />
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </PaperProvider>
   );
 };
