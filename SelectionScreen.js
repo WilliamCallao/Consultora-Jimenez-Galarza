@@ -198,6 +198,11 @@ const mapDarkStyle = [
 
 const SelectionScreen = () => {
   const [location, setLocation] = useState(null);
+  const [isZoomEnabled, setIsZoomEnabled] = useState(false); // Controla el zoom
+  const [isScrollEnabled, setIsScrollEnabled] = useState(false); // Controla el desplazamiento
+
+  // Variables para ajustar el zoom inicial
+  const initialZoomLevel = 0.02; // Ajusta este valor para cambiar el nivel de zoom inicial
 
   useEffect(() => {
     (async () => {
@@ -211,8 +216,8 @@ const SelectionScreen = () => {
       setLocation({
         latitude: coords.latitude,
         longitude: coords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
+        latitudeDelta: initialZoomLevel,
+        longitudeDelta: initialZoomLevel,
       });
     })();
   }, []);
@@ -227,11 +232,13 @@ const SelectionScreen = () => {
         style={styles.map}
         customMapStyle={mapDarkStyle}
         region={location}
+        scrollEnabled={isScrollEnabled}
+        zoomEnabled={isZoomEnabled}
+        rotateEnabled={false} // Deshabilita la rotación del mapa
+        pitchEnabled={false} // Deshabilita el cambio de ángulo del mapa
       >
         {location && (
-          <Marker
-            coordinate={location}
-          >
+          <Marker coordinate={location}>
             <View style={styles.customMarker} />
           </Marker>
         )}
