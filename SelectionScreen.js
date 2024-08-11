@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import theme from './theme';
-
 const mapDarkStyle = [
   {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#212121"
+        "color": "#0E121A"
       }
     ]
   },
@@ -25,6 +24,7 @@ const mapDarkStyle = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
+        "visibility": "off",
         "color": "#757575"
       }
     ]
@@ -33,6 +33,7 @@ const mapDarkStyle = [
     "elementType": "labels.text.stroke",
     "stylers": [
       {
+        "visibility": "off",
         "color": "#212121"
       }
     ]
@@ -68,6 +69,7 @@ const mapDarkStyle = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
+        "visibility": "off",
         "color": "#bdbdbd"
       }
     ]
@@ -77,6 +79,7 @@ const mapDarkStyle = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
+        "visibility": "off",
         "color": "#757575"
       }
     ]
@@ -86,7 +89,7 @@ const mapDarkStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#181818"
+        "color": "#1A1E27"
       }
     ]
   },
@@ -95,7 +98,8 @@ const mapDarkStyle = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#616161"
+        "visibility": "off",
+        "color": "#FF0004"
       }
     ]
   },
@@ -113,7 +117,7 @@ const mapDarkStyle = [
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#2c2c2c"
+        "color": "#1A1E27"
       }
     ]
   },
@@ -122,7 +126,8 @@ const mapDarkStyle = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#8a8a8a"
+        "visibility": "off",
+        "color": "#FF0004"
       }
     ]
   },
@@ -131,7 +136,7 @@ const mapDarkStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#373737"
+        "color": "#2A323D"
       }
     ]
   },
@@ -140,7 +145,7 @@ const mapDarkStyle = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#3c3c3c"
+        "color": "#2A323D"
       }
     ]
   },
@@ -222,8 +227,15 @@ const SelectionScreen = () => {
         style={styles.map}
         customMapStyle={mapDarkStyle}
         region={location}
-        showsUserLocation={true}
-      />
+      >
+        {location && (
+          <Marker
+            coordinate={location}
+          >
+            <View style={styles.customMarker} />
+          </Marker>
+        )}
+      </MapView>
     </View>
   );
 };
@@ -235,6 +247,12 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  customMarker: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#808080', // Color gris para hacer que el marcador sea discreto
   },
 });
 
