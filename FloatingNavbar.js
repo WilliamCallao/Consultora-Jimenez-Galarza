@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const FloatingNavbar = ({ navigation }) => {
   const menuItems = [
     { icon: 'home', screen: 'MainScreen' },
-    { icon: 'home', screen: 'MainScreen', selected: true },
     { icon: 'home', screen: 'MainScreen' },
+    { icon: 'home', screen: 'MainScreen', selected: true },
     { icon: 'home', screen: 'MainScreen' },
   ];
 
@@ -18,7 +18,7 @@ const FloatingNavbar = ({ navigation }) => {
           style={[styles.iconBox, item.selected ? styles.iconSelected : null]}
           onPress={() => navigation.navigate(item.screen)}
         >
-          <Icon name={item.icon} size={30} color={item.selected ? '#000' : '#FFF'} />
+          <Icon name={item.icon} size={30} color={item.selected ? '#000' : '#000'} />
         </TouchableOpacity>
       ))}
     </View>
@@ -27,9 +27,10 @@ const FloatingNavbar = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginHorizontal: 50,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Transparent background to match the screen
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
     padding: 10,
     borderRadius: 20,
   },
@@ -38,11 +39,11 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 25, // Half of width and height to create circle shape
+    backgroundColor: '#fff',
+    borderRadius: 10,
   },
   iconSelected: {
-    backgroundColor: '#F7C846', // Yellow background for selected icon
+    backgroundColor: '#F7C846',
   },
 });
 

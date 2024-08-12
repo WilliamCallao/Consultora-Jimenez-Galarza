@@ -1,8 +1,7 @@
-// App.js
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';  // Asegúrate de que esta línea está correcta
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -12,8 +11,8 @@ import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
-const loadFonts = () => {
-  return Font.loadAsync({
+const loadFonts = async () => {
+  await Font.loadAsync({
     'SFUIDisplay-Bold': require('./assets/fonts/SFUIDisplay-Bold.ttf'),
     'SFUIDisplay-Medium': require('./assets/fonts/SFUIDisplay-Medium.ttf'),
   });
@@ -23,25 +22,41 @@ const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
-    const fetchFonts = async () => {
-      await loadFonts();
-      setFontsLoaded(true);
-    };
-    fetchFonts();
+    async function prepare() {
+      try {
+        // Mantén la pantalla de carga visible mientras se cargan los recursos
+        await SplashScreen.preventAutoHideAsync();
+        // Carga tus recursos
+        await loadFonts();
+        // Indica que la carga ha finalizado y actualiza el estado
+        setFontsLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        // Oculta la pantalla de carga
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
   }, []);
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null; // No renderizar nada hasta que las fuentes estén cargadas
   }
 
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="MainScreen" component={MainScreen} />
-        </Stack.Navigator>
+      <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Screen 
+          name="MainScreen" 
+          component={MainScreen}
+          options={{ headerShown: false }}  // Agrega esta línea para quitar la cabecera
+        />
+      </Stack.Navigator>
       </NavigationContainer>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast ref={Toast.setRef} />
     </PaperProvider>
   );
 };
