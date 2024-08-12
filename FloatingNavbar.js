@@ -4,10 +4,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const FloatingNavbar = ({ navigation }) => {
   const menuItems = [
-    { icon: 'menu-book', screen: 'Books' },
-    { icon: 'home', screen: 'Home', selected: true },
-    { icon: 'beach-access', screen: 'Vacation' },
-    { icon: 'calculator', screen: 'Calculator' },
+    { icon: 'home', screen: 'MainScreen' },
+    { icon: 'home', screen: 'MainScreen', selected: true },
+    { icon: 'home', screen: 'MainScreen' },
+    { icon: 'home', screen: 'MainScreen' },
   ];
 
   return (

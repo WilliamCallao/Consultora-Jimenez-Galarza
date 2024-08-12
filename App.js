@@ -1,11 +1,16 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
-import SelectionScreen from './MainScreen';
+import MainScreen from './MainScreen';
 import theme from './theme';
 import Toast from 'react-native-toast-message';
+
+const Stack = createNativeStackNavigator();
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -30,8 +35,12 @@ const App = () => {
   }
 
   return (
-    <PaperProvider theme={theme} style={{ flex: 1 }}>
-      <SelectionScreen />
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="MainScreen" component={MainScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </PaperProvider>
   );
