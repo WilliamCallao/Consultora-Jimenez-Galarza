@@ -1,43 +1,35 @@
-// MainScreen.js
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import MapBackground from './MapBackground';
-import theme from './theme';
 import CustomCard from './CustomCard';
+import FloatingNavbar from './FloatingNavbar'; // Importa el componente de barra de navegación
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => { // Asegúrate de pasar navigation si usas react-navigation
   return (
     <MapBackground>
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-      <CustomCard
-        title="Gate 1C"
-        subtitle="Airport Infrastructure"
-        buttonText="Build a route"
-      >
-        <Text>Additional content can go here.</Text>
-      </CustomCard>
-    </View>
+      <View style={styles.container}>
+        <View>
+          
+        </View>
+        <CustomCard
+          title="Gate 1C"
+          subtitle="Airport Infrastructure"
+          buttonText="Build a route"
+        >
+          <Text>Additional content can go here.</Text>
+        </CustomCard>
+        <FloatingNavbar navigation={navigation} />
+      </View>
     </MapBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    position: 'absolute',
-    top: 50,
-    left: 20,
-    right: 20,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 10,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: theme.colors.text,
-  },
+  container: {
+    flex: 1,
+    justifyContent: 'space-between', // Ajusta el contenido para que la barra de navegación no sobrepase otros elementos
+    paddingBottom: 50, // Añade algo de padding en la parte inferior para evitar solapamientos
+  }
 });
 
 export default MainScreen;

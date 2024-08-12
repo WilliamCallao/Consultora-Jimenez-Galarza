@@ -17,7 +17,7 @@ const CustomCard = ({ title, subtitle, buttonText, children }) => {
   
     return (
     <Card style={styles.card}>
-      <Card.Content>
+      <Card.Content style={{paddingHorizontal: 20, marginBottom: 20}}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         {children}
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginTop: 10,
+    marginTop: 5,
     marginBottom: 5,
     fontFamily: 'SFUIDisplay-Bold',
     color: '#000',
@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: 'row',
-    backgroundColor: '#FFD700',
-    padding: 12,
+    backgroundColor: '#F7C846',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
