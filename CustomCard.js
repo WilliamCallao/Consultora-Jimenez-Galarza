@@ -33,7 +33,7 @@ const CustomCard = ({ title, subtitle, buttonText, children }) => {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 20,
-    margin: 15,
+    // margin: 15,
     overflow: 'hidden',
   },
   title: {
