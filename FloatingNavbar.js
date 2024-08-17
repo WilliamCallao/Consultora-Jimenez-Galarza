@@ -9,30 +9,28 @@ const FloatingNavbar = ({ navigation }) => {
 
   const menuItems = [
     { icon: 'home', screen: 'MainScreen' },
-    { icon: 'person', screen: 'ProfileScreen' },
-    { icon: 'search', screen: 'SearchScreen' },
-    { icon: 'notifications', screen: 'NotificationScreen' },
+    { icon: 'person', screen: 'MainScreen' },
+    // { icon: 'search', screen: 'MainScreen' },
+    // { icon: 'notifications', screen: 'MainScreen' },
   ];
 
-  const itemWidth = 70; // Ancho fijo para cada ítem, ajustado para hacerlo circular
-  const spacing = 10; // Espacio entre los íconos
-  const containerWidth = itemWidth * menuItems.length + spacing * (menuItems.length - 1); // Ancho total del contenedor
+  const itemWidth = 70;
+  const spacing = 10;
 
   useEffect(() => {
-    // Ajuste inicial del indicador basado en el ítem seleccionado inicialmente
     translateX.value = withSpring(selectedItem * (itemWidth + spacing), {
-      damping: 15, // Reduce la intensidad del rebote (a mayor valor, menor rebote)
-      stiffness: 150, // Aumenta la rapidez de la animación (a mayor valor, mayor rapidez)
+      damping: 15,
+      stiffness: 150, 
     });
   }, [selectedItem, itemWidth]);
 
   const handlePress = (index, screen) => {
-    setSelectedItem(index); // Cambia el ítem seleccionado
+    setSelectedItem(index);
     translateX.value = withSpring(index * (itemWidth + spacing), {
-      damping: 15, // Reduce la intensidad del rebote
-      stiffness: 150, // Aumenta la rapidez de la animación
+      damping: 15,
+      stiffness: 150,
     });
-    navigation.navigate(screen); // Navega a la pantalla correspondiente
+    navigation.navigate(screen);
   };
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -51,7 +49,7 @@ const FloatingNavbar = ({ navigation }) => {
             style={[styles.iconBox, { width: itemWidth, marginRight: index === menuItems.length - 1 ? 0 : spacing }]}
             onPress={() => handlePress(index, item.screen)}
           >
-            <Icon name={item.icon} size={30} color={selectedItem === index ? '#000' : '#888'} />
+            <Icon name={item.icon} size={30} color={selectedItem === index ? '#000' : '#757575'} />
           </TouchableOpacity>
         ))}
       </View>
@@ -71,17 +69,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#333',
+    backgroundColor: '#3C3C3C',
     borderRadius: 100,
     paddingHorizontal: 5,
-    // paddingHorizontal: 5,
   },
   iconBox: {
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
-    backgroundColor: 'green'
   },
   indicator: {
     position: 'absolute',
