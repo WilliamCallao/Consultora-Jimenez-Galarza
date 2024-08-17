@@ -4,10 +4,10 @@
     "slug": "Consultora-Jimenez-Galarza",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#000"
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true
@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#000"
+        "backgroundColor": "#ffffff"
       }
     },
     "web": {

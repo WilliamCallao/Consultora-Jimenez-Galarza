@@ -1,54 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Alert, Dimensions } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-
-const MapBackground = () => {
-  const [location, setLocation] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission to access location was denied');
-        return;
-      }
-
-      let { coords } = await Location.getCurrentPositionAsync({});
-      setLocation({
-        latitude: coords.latitude,
-        longitude: coords.longitude,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      });
-    })();
-  }, []);
-
-  if (!location) {
-    return null; // Puedes mostrar un spinner de carga aquí si lo prefieres
-  }
-
-  return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={location}
-        customMapStyle={mapDarkStyle}
-        scrollEnabled={false}
-        zoomEnabled={false}
-        rotateEnabled={false}
-        pitchEnabled={false}
-      >
-        {location && (
-          <Marker coordinate={location}>
-            <View style={styles.customMarker} />
-          </Marker>
-        )}
-      </MapView>
-    </View>
-  );
-};
-
+import theme from './theme';
 const mapDarkStyle = [
     {
       "elementType": "geometry",
@@ -242,21 +196,73 @@ const mapDarkStyle = [
     }
   ];
 
-  const styles = StyleSheet.create({
-    container: {
-      width: Dimensions.get('window').width*1.2,
-      height: Dimensions.get('window').height*1.2,
-    },
-    map: {
-      width: '100%',
-      height: '100%',
-    },
-    customMarker: {
-      width: 10,
-      height: 10,
-      borderRadius: 5,
-      backgroundColor: '#808080',
-    },
-  });
-  
-  export default MapBackground;
+  const MapBackground = ({ children }) => {
+  const [location, setLocation] = useState(null);
+  const [isZoomEnabled, setIsZoomEnabled] = useState(false); // Controla el zoom
+  const [isScrollEnabled, setIsScrollEnabled] = useState(false); // Controla el desplazamiento
+
+  // Variables para ajustar el zoom inicial
+  const initialZoomLevel = 0.02; // Ajusta este valor para cambiar el nivel de zoom inicial
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission to access location was denied');
+        return;
+      }
+
+      let { coords } = await Location.getCurrentPositionAsync({});
+      setLocation({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        latitudeDelta: initialZoomLevel,
+        longitudeDelta: initialZoomLevel,
+      });
+    })();
+  }, []);
+
+  if (!location) {
+    return null; // or you can display a loading spinner
+  }
+
+  return (
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        customMapStyle={mapDarkStyle}
+        region={location}
+        scrollEnabled={isScrollEnabled}
+        zoomEnabled={isZoomEnabled}
+        rotateEnabled={false} // Deshabilita la rotación del mapa
+        pitchEnabled={false} // Deshabilita el cambio de ángulo del mapa
+      >
+        {location && (
+          <Marker coordinate={location}>
+            <View style={styles.customMarker} />
+          </Marker>
+        )}
+      </MapView>
+      {/* Render children components over the map */}
+      {children}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  customMarker: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#808080', // Color gris para hacer que el marcador sea discreto
+  },
+});
+
+export default MapBackground;
