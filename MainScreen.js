@@ -1,31 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import FloatingNavbar from './FloatingNavbar';
-import ImageCircles from './ImageCircles';
+import TaskCard from './TaskCard';
 
 const MainScreen = ({ navigation }) => {
-  const images = [
-    'https://example.com/image1.jpg',
-    'https://example.com/image2.jpg',
-    'https://example.com/image3.jpg',
-  ]; // Ejemplo de imágenes
-
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <ImageCircles images={images} />
-          <FloatingNavbar navigation={navigation} />
-        </ScrollView>
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <TaskCard />
+        <FloatingNavbar navigation={navigation} />
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#141414',
   },
   scrollContainer: {
     flexGrow: 1,

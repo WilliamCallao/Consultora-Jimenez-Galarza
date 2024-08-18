@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    borderWidth: 4,
-    borderColor: 'red',
-    borderRadius: 300,
+    borderWidth: 2,
+    borderColor: '#1E1E1E',
+    borderRadius: 50,
     width: '100%',
     height: '100%',
   },
