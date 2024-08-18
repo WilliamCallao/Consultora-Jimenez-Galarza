@@ -10,7 +10,7 @@ const FloatingNavbar = ({ navigation }) => {
   const menuItems = [
     { icon: 'home', screen: 'MainScreen' },
     { icon: 'person', screen: 'MainScreen' },
-    // { icon: 'search', screen: 'MainScreen' },
+    { icon: 'search', screen: 'MainScreen' },
     // { icon: 'notifications', screen: 'MainScreen' },
   ];
 
@@ -19,16 +19,16 @@ const FloatingNavbar = ({ navigation }) => {
 
   useEffect(() => {
     translateX.value = withSpring(selectedItem * (itemWidth + spacing), {
-      damping: 15,
-      stiffness: 150, 
+      damping: 20, // Aumenta para reducir más el rebote
+      stiffness: 150, // Reduce para una animación más suave y menos rebote
     });
   }, [selectedItem, itemWidth]);
 
   const handlePress = (index, screen) => {
     setSelectedItem(index);
     translateX.value = withSpring(index * (itemWidth + spacing), {
-      damping: 15,
-      stiffness: 150,
+      damping: 20, // Aumenta para reducir más el rebote
+      stiffness: 150, // Reduce para una animación más suave y menos rebote
     });
     navigation.navigate(screen);
   };
